@@ -1,6 +1,6 @@
 // src/pages/ListView.tsx
 import React, { useEffect, useMemo, useState } from "react";
-import { getMarsPhotos, getMarsPhotosExpanded } from "../api/nasa";
+import { getMarsPhotosExpanded } from "../api/nasa";
 import { MarsPhotoRaw, MarsPhoto } from "../types";
 import { useDebounce } from "../hooks/useDebounce";
 import { usePhotos } from "../context/PhotosContext";
@@ -122,15 +122,3 @@ useEffect(() => {
     </div>
   );
 };
-
-function normalize(r: MarsPhotoRaw): MarsPhoto {
-  return {
-    id: r.id,
-    sol: r.sol,
-    cameraName: r.camera.name,
-    cameraFullName: r.camera.full_name,
-    imgSrc: r.img_src,
-    earthDate: r.earth_date,
-    roverName: r.rover.name,
-  };
-}
