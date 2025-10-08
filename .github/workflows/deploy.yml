@@ -5,13 +5,11 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-# Allow the workflow to write the Pages site
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Prevent multiple concurrent deploys from stepping on each other
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -19,8 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    # Make the secret available during the build step (ephemeral on the runner)
     env:
       REACT_APP_NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
 
@@ -34,18 +30,25 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies (try ci, fallback to install)
+        run: |
+          if npm ci --silent; then
+            echo "npm ci succeeded"
+          else
+            echo "npm ci failed — falling back to npm install"
+            npm install --no-audit --no-fund
+          fi
 
-      # Optional: create a .env.production file so CRA will definitely pick up the variable.
-      # This file only exists on the runner (not committed to the repo).
-      - name: Create .env.production (CRA-friendly)
+      - name: Create .env.production (runner-only)
         run: |
           echo "REACT_APP_NASA_API_KEY=${{ secrets.NASA_API_KEY }}" > .env.production
-          echo ".env.production created (for build only)"
 
       - name: Build site
         run: npm run build
+
+      - name: Add SPA fallback for GitHub Pages
+        run: |
+          cp build/index.html build/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -55,12 +58,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-
-    # Note: environment.url can reference the deployment step output.
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
