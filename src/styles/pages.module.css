@@ -1,0 +1,129 @@
+/* src/styles/pages.module.css */
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 12px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.input {
+  padding: 6px 8px;
+  min-width: 240px;
+}
+
+.select {
+  padding: 6px 8px;
+}
+
+.button {
+  padding: 6px 10px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  gap: 12px;
+  padding: 8px 6px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.thumb {
+  width: 96px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.itemMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  font-weight: 600;
+  color: #0b5fff;
+  text-decoration: none;
+}
+
+.small {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.filterRow {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  display: block;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+}
+
+.cardImg {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.cardBody {
+  padding: 8px;
+}
+
+.cardTitle {
+  font-weight: 600;
+}
+
+.detailRow {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.detailImg {
+  width: 600px;
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.detailMeta {
+  max-width: 420px;
+}
+
+.buttonRow {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
